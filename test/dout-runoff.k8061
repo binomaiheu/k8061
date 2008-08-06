@@ -1,0 +1,41 @@
+# This one switches all the DOUT ports on,
+# and runs an off through the entire array
+
+# Selecting card, and resetting and set jumpers
+card 0
+reset
+jmps aout 0x0
+jmps ain  0x0
+
+# Here we go...
+set dout all 1
+wait 2.0
+set dout 1 0
+wait 0.5
+set dout 1 1
+set dout 2 0
+wait 0.5
+set dout 2 1
+set dout 3 0
+wait 0.5
+set dout 3 1
+set dout 4 0
+wait 0.5
+set dout 4 1
+set dout 5 0
+wait 0.5
+set dout 5 1
+set dout 6 0
+wait 0.5
+set dout 6 1
+set dout 7 0
+wait 0.5
+set dout 7 1
+set dout 8 0
+wait 0.5
+set dout 8 1
+wait 2.0
+set dout all 0
+
+# Lets display all for fun
+get all

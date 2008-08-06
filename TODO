@@ -1,0 +1,2 @@
+- add Qt interface
+- doesn't install documentation yet when running make install

@@ -1,0 +1,677 @@
+LIBRARY  = libK8061.a
+
+SOURCES  = k8061_Init.c \
+           k8061_ScanBus.c \
+           k8061_Globals.c \
+           k8061_GetDeviceCount.c \
+           k8061_OpenDevices.c \
+           k8061_CloseDevices.c \
+           k8061_CheckOpen.c \
+           k8061_ListDevices.c \
+           k8061_ExecIO.c \
+           k8061_SetAllDigital.c \
+           k8061_ClearAllDigital.c \
+           k8061_OutputAllDigital.c \
+           k8061_SetDigitalChannel.c \
+           k8061_ClearDigitalChannel.c \
+           k8061_ClearAllAnalog.c \
+           k8061_ClearAnalogChannel.c \
+           k8061_OutputAllAnalog.c \
+           k8061_OutputAnalogChannel.c \
+           k8061_SetAllAnalog.c \
+           k8061_SetAnalogChannel.c \
+           k8061_ReadAnalogChannel.c \
+           k8061_ReadAllAnalog.c \
+           k8061_ReadAllDigital.c \
+           k8061_ReadAllDigitalByte.c \
+           k8061_ReadDigitalChannel.c \
+           k8061_OutputPWM.c \
+           k8061_IsConnected.c \
+           k8061_HasPower.c \
+           k8061_ReadVersion.c \
+           k8061_ReadBackDigitalOut.c \
+           k8061_ReadBackAnalogOut.c \
+           k8061_ReadBackPWMOut.c \
+           k8061_ResetCounters.c \
+           k8061_ReadCounters.c \
+           k8061_WriteStatus.c \
+           k8061_GetVoltValue.c \
+           k8061_WriteJumpers.c \
+           k8061_OutputAnalogChannelVolt.c \
+           k8061_OutputAllAnalogVolt.c
+
+
+OBJECTS  = $(SOURCES:.c=.o)
+
+CC       = gcc
+AR       = ar
+
+CFLAGS  += -O -g -Wall -I/usr/include
+CFLAGS  += -I/usr/include
+LDFLAGS += 
+ARFLAGS  = rcs
+
+.c.o:
+	@echo "Compiling $< ..."
+	@gcc -o $@ $(CFLAGS) -c $<
+
+
+all: $(LIBRARY)
+
+$(LIBRARY): $(OBJECTS)
+	@echo "Creating library ..."
+	@$(AR) $(ARFLAGS) $@ $(OBJECTS)
+	@echo "All done"
+	@echo "**********************************************************"
+	@echo " Your K8061 library is in $@..."
+	@echo "**********************************************************"
+
+clean:
+	@find . -name "*.o"      -exec rm -f "{}" ';'
+	@find . -name "*.bak"    -exec rm -f "{}" ';'
+	@find . -name "*~"       -exec rm -f "{}" ';'
+	@find . -name "#*#"      -exec rm -f "{}" ';'
+	@find . -name $(LIBRARY) -exec rm -f "{}" ";"
+
+depend:
+	@gccmakedep -- $(CFLAGS) -- $(SOURCES)
+# DO NOT DELETE
+k8061_Init.o: k8061_Init.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_Globals.o: k8061_Globals.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_GetDeviceCount.o: k8061_GetDeviceCount.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_OpenDevices.o: k8061_OpenDevices.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_CloseDevices.o: k8061_CloseDevices.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ExecIO.o: k8061_ExecIO.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_SetAllDigital.o: k8061_SetAllDigital.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ClearAllDigital.o: k8061_ClearAllDigital.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_OutputAllDigital.o: k8061_OutputAllDigital.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_SetDigitalChannel.o: k8061_SetDigitalChannel.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ClearDigitalChannel.o: k8061_ClearDigitalChannel.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ClearAllAnalog.o: k8061_ClearAllAnalog.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ClearAnalogChannel.o: k8061_ClearAnalogChannel.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_OutputAllAnalog.o: k8061_OutputAllAnalog.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_OutputAnalogChannel.o: k8061_OutputAnalogChannel.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_SetAllAnalog.o: k8061_SetAllAnalog.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_SetAnalogChannel.o: k8061_SetAnalogChannel.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ReadAnalogChannel.o: k8061_ReadAnalogChannel.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ReadAllAnalog.o: k8061_ReadAllAnalog.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_OutputPWM.o: k8061_OutputPWM.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_IsConnected.o: k8061_IsConnected.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_HasPower.o: k8061_HasPower.c k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ReadVersion.o: k8061_ReadVersion.c /usr/include/string.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h k8061.h \
+  /usr/include/stdio.h /usr/include/bits/types.h \
+  /usr/include/bits/typesizes.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ReadBackDigitalOut.o: k8061_ReadBackDigitalOut.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ReadBackAnalogOut.o: k8061_ReadBackAnalogOut.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
+k8061_ReadBackPWMOut.o: k8061_ReadBackPWMOut.c k8061.h \
+  /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h

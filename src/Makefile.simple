@@ -1,0 +1,57 @@
+BINARY   = cmd8061
+
+SOURCES  = cmd8061.c cmd_init.c cmd_cleanup.c cmd_completion.c \
+           cmd_strmanip.c cmd_commands.c cmd_execute.c cmd_argparser.c
+OBJECTS  = $(SOURCES:.c=.o)
+
+CFLAGS  += -O -g -Wno-unused 
+CFLAGS  += -I../libK8061
+LDFLAGS += -lusb -lreadline -lhistory
+
+# The lib8061 library
+K8061LIB = -L../libK8061 -lK8061
+
+.c.o:
+	@echo "Compiling $< ..."
+	@gcc -o $@ $(CFLAGS) -c $<
+
+all: $(BINARY)
+
+$(BINARY): $(OBJECTS)
+	@echo "Linking $@ ..."
+	@gcc -o $@ $(LDFLAGS) $(OBJECTS) $(K8061LIB)
+
+clean:
+	@find . -name "*.o"      -exec rm -f "{}" ';'
+	@find . -name "*.bak"    -exec rm -f "{}" ';'
+	@find . -name "*~"       -exec rm -f "{}" ';'
+	@find . -name "#*#"      -exec rm -f "{}" ';'
+	@find . -name $(BINARY)  -exec rm -f "{}" ";"
+
+depend:
+	@gccmakedep -- $(CFLAGS) -- $(SOURCES)
+
+# DO NOT DELETE
+cmd8061.o: cmd8061.c ../libK8061/k8061.h /usr/include/stdio.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+  /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/usb.h /usr/include/unistd.h \
+  /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/limits.h \
+  /usr/lib/gcc/i386-redhat-linux/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/dirent.h \
+  /usr/include/bits/dirent.h
