@@ -1,0 +1,2 @@
+BM 2009.01.17 : edited libK8061/k8061_GetADCVolt.c line 22, changed < 255 -> < 1023
+	
