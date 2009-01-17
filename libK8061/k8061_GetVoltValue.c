@@ -19,7 +19,7 @@ double k8061_GetADCVolt( int iCard, int chan, int val ) {
     return -1.;
   }
 
-  if ( val < 0 || val > 255 ) {
+  if ( val < 0 || val > 1023 ) {
     fprintf( stderr, "*** error <k8061_GetADCVolt> : Invalid ADC value r %d", val );
     fflush( stderr );
     return -1.;
